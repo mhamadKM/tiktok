@@ -14,6 +14,15 @@
     body{
       background:#201c1cb3 ;
     }
+    /*-------------*/
+    h1 {
+            font-size: 9vmin;
+            color: #8bf;
+            text-align: left;
+            font-family: Lato, sans-serif;
+            font-weight: 700;
+            margin: 1rem 0 1rem 2rem;
+        }
     /* ------------------------- */
     .wrapper{
       display: flex;
@@ -186,7 +195,9 @@
     
 <div class="wrapper">
     <div class="header">
-        <h1 class="display-1">کەناڵەکانمان</h1>
+        <h1 aria-label="Hi! I'm a developer">
+        &nbsp;<span id="typewriter"></span>
+    </h1>
     </div>
 <div class="main">
     <ul class="social ">
@@ -210,7 +221,39 @@
 </div>
 
 </div>
+<script>
+        const textArray = ["کەناڵەکانمان", "تیکتۆک", "تێلێگرام", "یوتوب"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
 
+        function type() {
+            const currentText = textArray[textIndex];
+            const spanElement = document.getElementById("typewriter");
+
+            if (!isDeleting) {
+                spanElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            } else {
+                spanElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            }
+
+            if (charIndex === currentText.length) {
+                isDeleting = true;
+            }
+
+            if (charIndex === 0 && isDeleting) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % textArray.length;
+            }
+
+            const typingSpeed = isDeleting ? 150 : 150;
+            setTimeout(type, typingSpeed);
+        }
+
+        type();
+    </script>
 
 <!-- <section id="social">
     <div class="container">
